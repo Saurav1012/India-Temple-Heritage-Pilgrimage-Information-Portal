@@ -1,0 +1,272 @@
+.about-page{
+    background:#fafafa;
+    overflow:hidden;
+}
+
+/* ========================= */
+/* Hero */
+/* ========================= */
+
+.about-hero{
+    height:60vh;
+    background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url("../../assets/temple-banner.jpg.jpeg");
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.overlay{
+    color:#fff;
+    max-width:850px;
+    padding:20px;
+}
+
+.overlay h1{
+    font-size:48px;
+    margin-bottom:20px;
+    animation:fadeDown 1s ease;
+}
+
+.overlay p{
+    font-size:20px;
+    line-height:1.7;
+    animation:fadeUp 1.2s ease;
+}
+
+/* ========================= */
+/* Common */
+/* ========================= */
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.about-section,
+.features-section,
+.tech-section,
+.developer-section{
+    padding:80px 0;
+}
+
+.about-section h2,
+.features-section h2,
+.tech-section h2,
+.developer-section h2{
+    text-align:center;
+    color:#e65100;
+    font-size:36px;
+    margin-bottom:30px;
+}
+
+.about-section p{
+    text-align:center;
+    max-width:900px;
+    margin:20px auto;
+    line-height:1.9;
+    color:#555;
+    font-size:18px;
+}
+
+/* ========================= */
+/* Mission */
+/* ========================= */
+
+.mission-section{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:30px;
+    padding:70px 10%;
+    background:#fff3e0;
+}
+
+.mission-card{
+    background:white;
+    border-radius:20px;
+    padding:40px;
+    text-align:center;
+    box-shadow:0 15px 30px rgba(0,0,0,.08);
+    transition:.4s;
+}
+
+.mission-card:hover{
+    transform:translateY(-12px);
+}
+
+.mission-card h2{
+    color:#ff6f00;
+    margin-bottom:20px;
+}
+
+/* ========================= */
+/* Features */
+/* ========================= */
+
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.feature-card{
+    background:white;
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+    box-shadow:0 15px 30px rgba(0,0,0,.08);
+    transition:.4s;
+    font-size:40px;
+}
+
+.feature-card:hover{
+    transform:translateY(-12px);
+}
+
+.feature-card h3{
+    margin:20px 0;
+    color:#d84315;
+    font-size:24px;
+}
+
+.feature-card p{
+    color:#666;
+    line-height:1.7;
+    font-size:16px;
+}
+
+/* ========================= */
+/* Tech */
+/* ========================= */
+
+.tech-section{
+    background:#fff8f1;
+}
+
+.tech-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    margin-top:40px;
+}
+
+.tech-box{
+    background:white;
+    border-radius:15px;
+    padding:30px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    color:#ff6f00;
+    transition:.4s;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.tech-box:hover{
+    background:#ff9800;
+    color:white;
+    transform:scale(1.05);
+}
+
+/* ========================= */
+/* Developer */
+/* ========================= */
+
+.developer-card{
+    max-width:500px;
+    margin:auto;
+    background:white;
+    border-radius:20px;
+    padding:40px;
+    text-align:center;
+    box-shadow:0 15px 30px rgba(0,0,0,.08);
+}
+
+.developer-avatar{
+    width:120px;
+    height:120px;
+    background:#fff3e0;
+    margin:auto;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:60px;
+}
+
+.developer-card h3{
+    margin-top:20px;
+    color:#d84315;
+    font-size:28px;
+}
+
+.developer-card p{
+    margin-top:15px;
+    line-height:1.8;
+    color:#666;
+}
+
+/* ========================= */
+/* Animations */
+/* ========================= */
+
+@keyframes fadeDown{
+    from{
+        opacity:0;
+        transform:translateY(-40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ========================= */
+/* Responsive */
+/* ========================= */
+
+@media(max-width:768px){
+
+.overlay h1{
+    font-size:34px;
+}
+
+.overlay p{
+    font-size:17px;
+}
+
+.about-section h2,
+.features-section h2,
+.tech-section h2,
+.developer-section h2{
+    font-size:30px;
+}
+
+.mission-section{
+    padding:50px 20px;
+}
+
+.feature-card{
+    font-size:32px;
+}
+
+.tech-box{
+    font-size:18px;
+}
+
+}
