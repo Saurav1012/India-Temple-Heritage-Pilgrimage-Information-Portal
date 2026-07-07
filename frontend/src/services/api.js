@@ -74,13 +74,16 @@ export const api = {
     return handleResponse(res);
   },
 
-  login: async (password) => {
+ login: async (username, password) => {
   const res = await fetch(`${BASE_URL}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ password }),
+    body: JSON.stringify({
+      username,
+      password,
+    }),
   });
 
   return handleResponse(res);

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { api } from "../../services/api";
 import "./Admin.css";
+import { toast } from "react-toastify";
 
 const Admin = () => {
   const { isAdmin, login, logout } = useAuth();
@@ -29,6 +30,22 @@ const Admin = () => {
   
   // Step 9: Added editingId state
   const [editingId, setEditingId] = useState(null);
+
+  // --- Step 1: Dashboard Statistics Logic ---
+  const totalTemples = temples.length;
+
+  const averageRating =
+    temples.length > 0
+      ? (
+          temples.reduce((sum, temple) => sum + Number(temple.rating || 0), 0) /
+          temples.length
+        ).toFixed(1)
+      : 0;
+
+  const totalStates = [...new Set(temples.map((t) => t.state))].length;
+
+  const totalCities = [...new Set(temples.map((t) => t.city))].length;
+  // ------------------------------------------
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -85,7 +102,7 @@ const Admin = () => {
           rituals: parsedRituals,
           facilities: parsedFacilities
         });
-        alert("Temple Updated");
+        toast.success("Temple Updated Successfully");
         setEditingId(null);
         
         // Reset form
@@ -108,7 +125,7 @@ const Admin = () => {
         rating: Number(form.rating)
       });
 
-      alert("Temple Added Successfully");
+      toast.success("Temple Added Successfully");
       
       setForm({
         templeId: "", name: "", city: "", state: "", deity: "",
@@ -117,7 +134,7 @@ const Admin = () => {
       });
       loadTemples();
     } catch (err) {
-      alert(err.message || "Something went wrong");
+      toast.error(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -132,10 +149,10 @@ const Admin = () => {
 
     try {
       await api.deleteTemple(id);
-      alert("Temple Deleted");
+      toast.success("Temple Deleted Successfully");
       loadTemples();
     } catch (err) {
-      alert(err.message);
+      toast.error(err.message);
     }
   };
 
@@ -188,6 +205,34 @@ const Admin = () => {
           Logout
         </button>
       </div>
+
+      {/* --- Step 2: Dashboard Statistics UI Layout --- */}
+      <div className="dashboard-stats">
+        <div className="stat-box">
+          <h2>🛕</h2>
+          <h3>{totalTemples}</h3>
+          <p>Total Temples</p>
+        </div>
+
+        <div className="stat-box">
+          <h2>⭐</h2>
+          <h3>{averageRating}</h3>
+          <p>Average Rating</p>
+        </div>
+
+        <div className="stat-box">
+          <h2>🏙️</h2>
+          <h3>{totalCities}</h3>
+          <p>Cities</p>
+        </div>
+
+        <div className="stat-box">
+          <h2>🗺️</h2>
+          <h3>{totalStates}</h3>
+          <p>States</p>
+        </div>
+      </div>
+      {/* ----------------------------------------------- */}
 
       <form className="temple-form" onSubmit={handleAddTemple}>
         {/* Dynamic Heading based on mode */}
@@ -306,7 +351,7 @@ const Admin = () => {
                 <button onClick={() => handleEdit(temple)}>
                   Edit
                 </button>
-               <button onClick={() => handleDelete(temple.templeId)}>
+                <button onClick={() => handleDelete(temple.templeId)}>
                   Delete
                 </button>
               </td>

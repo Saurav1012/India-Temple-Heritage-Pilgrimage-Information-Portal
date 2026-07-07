@@ -92,3 +92,42 @@
     display: none; /* In a real app, implement a hamburger menu here */
   }
 }
+/* Premium Theme Toggle */
+
+.theme-toggle{
+    width:65px;
+    height:34px;
+    border:none;
+    border-radius:50px;
+    background:linear-gradient(135deg,#ff9800,#ff6b00);
+    cursor:pointer;
+    position:relative;
+    display:flex;
+    align-items:center;
+    padding:3px;
+    transition:.4s;
+    margin-left:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.toggle-circle{
+    width:28px;
+    height:28px;
+    background:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+    transition:.35s;
+    transform:translateX(0);
+}
+
+.toggle-circle.active{
+    transform:translateX(31px);
+}
+
+.theme-toggle:hover{
+    transform:scale(1.05);
+    box-shadow:0 8px 20px rgba(0,0,0,.3);
+}

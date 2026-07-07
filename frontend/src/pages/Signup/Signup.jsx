@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import './Signup.css';
+import "./Signup.css";
 
 const Signup = () => {
   const { signup } = useAuth();
@@ -18,7 +18,8 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.password || !formData.confirmPassword) {
+    // Basic Validations
+    if (!formData.username.trim() || !formData.password || !formData.confirmPassword) {
       setError('Please fill in all fields');
       return;
     }
@@ -28,19 +29,25 @@ const Signup = () => {
       return;
     }
 
+    // Call API from context
     const result = await signup(formData.username, formData.password);
+    
     if (result.success) {
-      navigate('/login');
+      navigate('/login'); // Standard flow properly working here
     } else {
       setError(result.message || 'This username already exists');
     }
   };
 
   return (
-    <div className="login-page">
-      <div className="login-box">
-        <h1>Create Account</h1>
-        <form onSubmit={handleSubmit} className="login-form">
+    <div className="signup-page">
+      <div className="signup-box">
+        <h1>✨ Create Account</h1>
+        <p className="subtitle">
+          Join India's Temple Heritage Community
+        </p>
+
+        <form onSubmit={handleSubmit} className="signup-form">
           <input
             type="text"
             name="username"
@@ -65,6 +72,7 @@ const Signup = () => {
             onChange={handleChange}
             required
           />
+          
           {error && <p className="error-msg">{error}</p>}
           <button type="submit">Sign Up</button>
         </form>

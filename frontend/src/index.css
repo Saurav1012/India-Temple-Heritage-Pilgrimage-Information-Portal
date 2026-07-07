@@ -1,0 +1,74 @@
+/* ===========================
+   Global Theme
+=========================== */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#ffffff;
+  color:#222;
+  transition:.4s;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+/* ===========================
+   Dark Mode
+=========================== */
+
+body.dark{
+  background:#121212;
+  color:#f5f5f5;
+}
+
+/* Navbar */
+
+body.dark .navbar{
+  background:#1f1f1f;
+}
+
+body.dark .nav-link,
+body.dark .logo-text{
+  color:#fff;
+}
+
+/* Cards */
+
+body.dark .stat-card,
+body.dark .dashboard-card,
+body.dark .login-card,
+body.dark .temple-card,
+body.dark .festival-card{
+  background:#1e1e1e;
+  color:#fff;
+}
+
+/* Inputs */
+
+body.dark input,
+body.dark textarea,
+body.dark select{
+  background:#2b2b2b;
+  color:white;
+  border:1px solid #555;
+}
+
+/* Table */
+
+body.dark .temple-table td{
+  background:#1d1d1d;
+  color:white;
+}
+
+body.dark .temple-table th{
+  background:#ff6b00;
+}
+
+/* Footer */
+
+body.dark .footer{
+  background:#111;
+}

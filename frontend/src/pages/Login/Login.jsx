@@ -19,9 +19,16 @@ const Login = () => {
     e.preventDefault();
 
     const result = await login(formData.username, formData.password);
+    
     if (result.success) {
-      setError('');
-      navigate('/home');
+      setError("");
+
+      // Role-based redirection logic
+      if (result.user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     } else {
       setError(result.message || 'Invalid username or password');
     }

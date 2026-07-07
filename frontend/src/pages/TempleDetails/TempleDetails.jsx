@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getSacredSiteById as getLocalTempleById } from '../../data/temples';
 import { api } from '../../services/api';
+// 1. Loader component ka import add kiya gaya hai
+import Loader from "../../components/Loader/Loader";
 import './TempleDetails.css';
 
 const getWeatherLabel = (code) => {
@@ -39,6 +41,7 @@ const TempleDetails = () => {
     let isMounted = true;
 
     const loadTemple = async () => {
+      setLoading(true);
       const localTemple = getLocalTempleById(id);
       if (localTemple) {
         if (isMounted) {
@@ -152,7 +155,11 @@ const TempleDetails = () => {
     };
   }, [temple?.name, temple?.city, temple?.state]);
 
-  if (loading) return <div className="loading">Loading details...</div>;
+  // 2. Pehle ki loading string wali line ko isse replace kar diya hai
+  if (loading) {
+    return <Loader />;
+  }
+
   if (!temple) return <div className="no-results">Temple not found.</div>;
 
   const rituals = temple.rituals || [];
@@ -162,37 +169,34 @@ const TempleDetails = () => {
   const headerStyle = resolvedImage
     ? { backgroundImage: `url(${resolvedImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }
     : { background: 'linear-gradient(135deg, #fff3e0 0%, #e3f2fd 100%)' };
- const mapsQuery = encodeURIComponent(`${temple.name}, ${temple.city}, ${temple.state}`);
+  const mapsQuery = encodeURIComponent(`${temple.name}, ${temple.city}, ${temple.state}`);
 
-const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
-const nearbyLinks = {
-  hotel: `https://www.google.com/search?q=hotels+near+${mapsQuery}`,
-  restaurant: `https://www.google.com/search?q=restaurants+near+${mapsQuery}`,
-  railway: `https://www.google.com/search?q=railway+station+near+${mapsQuery}`,
-  airport: `https://www.google.com/search?q=airport+near+${mapsQuery}`,
-  parking: `https://www.google.com/search?q=parking+near+${mapsQuery}`,
-};
-const currentUrl = window.location.href;
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
+  const nearbyLinks = {
+    hotel: `https://www.google.com/search?q=hotels+near+${mapsQuery}`,
+    restaurant: `https://www.google.com/search?q=restaurants+near+${mapsQuery}`,
+    railway: `https://www.google.com/search?q=railway+station+near+${mapsQuery}`,
+    airport: `https://www.google.com/search?q=airport+near+${mapsQuery}`,
+    parking: `https://www.google.com/search?q=parking+near+${mapsQuery}`,
+  };
+  const currentUrl = window.location.href;
 
-const shareTemple = () => {
-  navigator.clipboard.writeText(currentUrl);
-  alert("Temple link copied!");
-};
+  const shareTemple = () => {
+    navigator.clipboard.writeText(currentUrl);
+    alert("Temple link copied!");
+  };
 
-const whatsappShare = `https://wa.me/?text=${encodeURIComponent(
-  `${temple.name}\n${currentUrl}`
-)}`;
+  const whatsappShare = `https://wa.me/?text=${encodeURIComponent(
+    `${temple.name}\n${currentUrl}`
+  )}`;
 
-
-const travelLinks = {
-  bus: `https://www.google.com/search?q=bus+fare+to+${mapsQuery}`,
-  train: `https://www.google.com/search?q=train+fare+to+${mapsQuery}`,
-  car: `https://www.google.com/search?q=car+fare+to+${mapsQuery}`,
-  bike: `https://www.google.com/search?q=bike+fare+to+${mapsQuery}`,
-  flight: `https://www.google.com/search?q=flight+fare+to+${mapsQuery}`,
-};
-
-
+  const travelLinks = {
+    bus: `https://www.google.com/search?q=bus+fare+to+${mapsQuery}`,
+    train: `https://www.google.com/search?q=train+fare+to+${mapsQuery}`,
+    car: `https://www.google.com/search?q=car+fare+to+${mapsQuery}`,
+    bike: `https://www.google.com/search?q=bike+fare+to+${mapsQuery}`,
+    flight: `https://www.google.com/search?q=flight+fare+to+${mapsQuery}`,
+  };
 
   return (
     <div className="temple-details-page">
@@ -234,32 +238,32 @@ const travelLinks = {
             <h2>Location & Travel</h2>
             <p><strong>Situated at:</strong> {temple.city}, {temple.state}</p>
             <p><strong>Weather:</strong> {weatherInfo ? `${Math.round(weatherInfo.temperature_2m)}°C • ${getWeatherLabel(weatherInfo.weather_code)}` : 'Live weather will appear when location data is available.'}</p>
-                      <a
-            href={googleMapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="map-btn"
-          >
-            📍 Open in Google Maps
-          </a>
-          <div className="share-buttons">
-  <a
-    href={whatsappShare}
-    target="_blank"
-    rel="noreferrer"
-    className="share-btn"
-  >
-    📲 WhatsApp
-  </a>
+            <a
+              href={googleMapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="map-btn"
+            >
+              📍 Open in Google Maps
+            </a>
+            <div className="share-buttons">
+              <a
+                href={whatsappShare}
+                target="_blank"
+                rel="noreferrer"
+                className="share-btn"
+              >
+                📲 WhatsApp
+              </a>
 
-  <button
-    type="button"
-    onClick={shareTemple}
-    className="share-btn"
-  >
-    📋 Copy Link
-  </button>
-</div>
+              <button
+                type="button"
+                onClick={shareTemple}
+                className="share-btn"
+              >
+                📋 Copy Link
+              </button>
+            </div>
             <div className="travel-links">
               <a href={travelLinks.bus} target="_blank" rel="noreferrer">Bus fare</a>
               <a href={travelLinks.train} target="_blank" rel="noreferrer">Train fare</a>
@@ -268,30 +272,13 @@ const travelLinks = {
               <a href={travelLinks.flight} target="_blank" rel="noreferrer">Flight fare</a>
             </div>
             <div className="nearby-links">
-
-  <h3>Nearby Facilities</h3>
-
-  <a href={nearbyLinks.hotel} target="_blank" rel="noreferrer">
-    🏨 Hotels
-  </a>
-
-  <a href={nearbyLinks.restaurant} target="_blank" rel="noreferrer">
-    🍽 Restaurants
-  </a>
-
-  <a href={nearbyLinks.railway} target="_blank" rel="noreferrer">
-    🚆 Railway Station
-  </a>
-
-  <a href={nearbyLinks.airport} target="_blank" rel="noreferrer">
-    ✈ Airport
-  </a>
-
-  <a href={nearbyLinks.parking} target="_blank" rel="noreferrer">
-    🅿 Parking
-  </a>
-
-</div>
+              <h3>Nearby Facilities</h3>
+              <a href={nearbyLinks.hotel} target="_blank" rel="noreferrer">🏨 Hotels</a>
+              <a href={nearbyLinks.restaurant} target="_blank" rel="noreferrer">🍽 Restaurants</a>
+              <a href={nearbyLinks.railway} target="_blank" rel="noreferrer">🚆 Railway Station</a>
+              <a href={nearbyLinks.airport} target="_blank" rel="noreferrer">✈ Airport</a>
+              <a href={nearbyLinks.parking} target="_blank" rel="noreferrer">🅿 Parking</a>
+            </div>
           </section>
 
           <section className="detail-section">
@@ -311,17 +298,14 @@ const travelLinks = {
         <div className="details-sidebar">
           <div className="sidebar-card">
             <h3>Visitor Information</h3>
-            
             <div className="info-item">
               <strong>Darshan Timings:</strong>
               <p>{temple.darshanTimings || 'Timings available on arrival.'}</p>
             </div>
-
             <div className="info-item">
               <strong>Guidelines:</strong>
               <p>{temple.guidelines || 'Please follow temple etiquette and local guidance.'}</p>
             </div>
-
             <div className="info-item">
               <strong>Facilities:</strong>
               {facilities.length > 0 ? (
@@ -337,7 +321,7 @@ const travelLinks = {
           </div>
 
           <Link to="/temples" className="back-btn">
-            &larr; Back to Temples
+            ← Back to Temples
           </Link>
         </div>
       </div>

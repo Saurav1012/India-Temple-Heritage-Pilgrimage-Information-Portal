@@ -222,3 +222,176 @@ padding:8px 14px;
 cursor:pointer;
 
 }
+/* =======================================
+   PREMIUM ADMIN DASHBOARD
+======================================= */
+
+.dashboard-stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+margin:35px 0;
+}
+
+.stat-box{
+background:linear-gradient(135deg,#ff8a00,#ff5722);
+color:white;
+padding:30px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 15px 35px rgba(0,0,0,.15);
+transition:.4s;
+animation:fadeUp .8s ease;
+}
+
+.stat-box:hover{
+transform:translateY(-10px) scale(1.03);
+box-shadow:0 20px 45px rgba(0,0,0,.25);
+}
+
+.stat-box h2{
+font-size:48px;
+margin-bottom:10px;
+}
+
+.stat-box h3{
+font-size:34px;
+margin-bottom:8px;
+font-weight:bold;
+}
+
+.stat-box p{
+font-size:18px;
+opacity:.95;
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* Form */
+
+.temple-form{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+margin-bottom:40px;
+}
+
+.temple-form input,
+.temple-form textarea{
+
+border:1px solid #ddd;
+border-radius:10px;
+padding:14px;
+transition:.3s;
+
+}
+
+.temple-form input:focus,
+.temple-form textarea:focus{
+
+border-color:#ff6b00;
+outline:none;
+box-shadow:0 0 10px rgba(255,107,0,.2);
+
+}
+
+.temple-form button{
+
+border-radius:12px;
+font-weight:bold;
+transition:.3s;
+
+}
+
+.temple-form button:hover{
+
+transform:translateY(-3px);
+
+}
+
+/* Table */
+
+.temple-table{
+
+overflow:hidden;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.temple-table tr{
+
+transition:.3s;
+
+}
+
+.temple-table tbody tr:hover{
+
+background:#fff6ef;
+
+}
+
+.temple-table button{
+
+border:none;
+border-radius:8px;
+font-weight:bold;
+transition:.3s;
+
+}
+
+.temple-table button:first-child{
+
+background:#2196f3;
+color:white;
+
+}
+
+.temple-table button:last-child{
+
+background:#f44336;
+color:white;
+
+}
+
+.temple-table button:hover{
+
+transform:scale(1.05);
+
+}
+
+@media(max-width:768px){
+
+.dashboard-stats{
+
+grid-template-columns:1fr;
+
+}
+
+.temple-form{
+
+grid-template-columns:1fr;
+
+}
+
+.temple-form textarea,
+.temple-form button{
+
+grid-column:span 1;
+
+}
+
+}
